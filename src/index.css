@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 15 20% 95%; /* Light warm gray */
+    --foreground: 15 10% 20%; /* Dark warm gray */
+    --card: 10 30% 98%; /* Slightly warmer white for cards */
+    --card-foreground: 15 10% 20%;
+    --popover: 10 30% 98%;
+    --popover-foreground: 15 10% 20%;
+    --primary: 0 70% 60%; /* Fiery red-orange */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 15 50% 80%; /* Lighter warm orange */
+    --secondary-foreground: 15 10% 20%;
+    --muted: 15 20% 90%; /* Muted warm gray */
+    --muted-foreground: 15 10% 40%;
+    --accent: 30 80% 70%; /* Warm accent orange */
+    --accent-foreground: 15 10% 20%;
+    --destructive: 0 80% 50%; /* Strong red for destructive actions */
+    --destructive-foreground: 0 0% 100%;
+    --border: 15 20% 85%; /* Warm gray border */
+    --input: 15 20% 88%; /* Warm gray input background */
+    --ring: 0 70% 60%; /* Fiery red-orange for focus rings */
+    --radius: 0.75rem; /* Slightly larger radius for a softer look */
+
+    --bg-normal: 20 60% 90%; /* Light peachy */
+    --bg-hot: 0 70% 85%; /* Light fiery red */
+    --bg-cold: 200 70% 90%; /* Light cool blue */
+
+    /* Chart specific colors */
+    --chart-grid-color: hsla(var(--border) / 0.3);
+    --chart-tick-color: hsl(var(--muted-foreground));
+    --chart-tooltip-bg: hsla(var(--card) / 0.95);
+    --chart-tooltip-text: hsl(var(--foreground));
+    --chart-line-color: hsl(var(--primary));
+    --chart-fill-color: hsla(var(--primary) / 0.15);
+    --chart-point-bg: hsl(var(--primary));
+    --chart-point-border: hsl(var(--card));
+    --chart-point-hover-bg: hsl(var(--accent));
+  }
+
+  .dark {
+    --background: 15 10% 15%; /* Dark warm gray */
+    --foreground: 15 20% 95%;
+    --card: 15 10% 20%;
+    --card-foreground: 15 20% 95%;
+    --popover: 15 10% 20%;
+    --popover-foreground: 15 20% 95%;
+    --primary: 0 70% 55%; /* Slightly darker fiery red-orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 15 40% 30%; /* Darker warm orange */
+    --secondary-foreground: 15 20% 95%;
+    --muted: 15 10% 25%;
+    --muted-foreground: 15 20% 70%;
+    --accent: 30 70% 60%;
+    --accent-foreground: 15 20% 95%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 15 10% 30%;
+    --input: 15 10% 28%;
+    --ring: 0 70% 55%;
+
+    --bg-normal: 20 30% 25%; 
+    --bg-hot: 0 50% 30%; 
+    --bg-cold: 200 40% 25%;
+
+    --chart-grid-color: hsla(var(--border) / 0.2);
+    --chart-tick-color: hsl(var(--muted-foreground));
+    --chart-tooltip-bg: hsla(var(--card) / 0.95);
+    --chart-tooltip-text: hsl(var(--foreground));
+    --chart-line-color: hsl(var(--primary));
+    --chart-fill-color: hsla(var(--primary) / 0.2);
+    --chart-point-bg: hsl(var(--primary));
+    --chart-point-border: hsl(var(--card));
+    --chart-point-hover-bg: hsl(var(--accent));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.5s ease-in-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.temperature-card {
+  background: hsla(var(--card) / 0.85); /* Slightly more opaque */
+  backdrop-filter: blur(12px); /* Increased blur */
+  border: 1px solid hsla(var(--border) / 0.25);
+  box-shadow: 0 10px 35px rgba(var(--primary-rgb, 0, 112, 240), 0.1), 0 2px 10px rgba(0,0,0,0.05); /* Softer shadow */
+}
+
+.temperature-display-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 1px 1px 5px hsla(var(--primary) / 0.2); /* Subtle text shadow */
+}
+
+.graph-container {
+  background: hsla(var(--card) / 0.8);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 35px rgba(var(--primary-rgb, 0, 112, 240), 0.1), 0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid hsla(var(--border) / 0.25);
+}
+
+.menu-backdrop {
+  background: rgba(0, 0, 0, 0.5); /* Darker backdrop */
+  backdrop-filter: blur(5px);
+}
+
+.menu-container {
+  background: hsla(var(--card) / 0.98);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px rgba(var(--primary-rgb, 0, 112, 240), 0.25);
+}
+
+.keypad-button {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 rounded-lg text-2xl sm:text-3xl font-semibold flex items-center justify-center aspect-square transition-all duration-150 ease-in-out;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+.keypad-button:active {
+  @apply scale-95 shadow-inner;
+}
+
+.bg-status-normal {
+  background-color: hsl(var(--bg-normal));
+}
+.bg-status-hot {
+  background-color: hsl(var(--bg-hot));
+}
+.bg-status-cold {
+  background-color: hsl(var(--bg-cold));
+}
+
+/* For small displays, ensure touch targets are large enough */
+@media (max-width: 640px) {
+  .keypad-button {
+    @apply text-xl;
+  }
+  .temperature-display-text {
+    font-size: 4.5rem; /* Equivalent to text-7xl */
+  }
+}
+
+@keyframes blink {
+  0%{
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking {
+  /* animation: blink 0.75s infinite;*/
+}
