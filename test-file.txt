@@ -1,4 +1,0 @@
-hello this is the test file to check the functionality of the ota
-this line is added in the 4th ota release
-this is the line added in the 6th ota release
-one more line added in this 7th ota
