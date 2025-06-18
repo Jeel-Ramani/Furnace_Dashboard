@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Thermometer, TrendingUp, TrendingDown, CheckCircle2, AlertTriangle } from "lucide-react";
 
-const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance, offset }) => {
+const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance }) => {
   // const getTemperatureColorClass = (temp) => {
   //   const diff = temp - setTemp;
   //   if (diff > 2) return "text-red-500";
@@ -13,8 +13,7 @@ const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance, offset }) => 
   // };
   const fourMa = localStorage.getItem("val4MA") || 0;
   const twentyMa = localStorage.getItem("val20MA") || 300;
-  var actcurrentTemp = fourMa + (((currentTemp / 10) - 4) / 16) * (twentyMa - fourMa);
-  actcurrentTemp = parseFloat(actcurrentTemp) + parseFloat(offset);
+  const actcurrentTemp = fourMa + (((currentTemp / 10) - 4) / 16) * (twentyMa - fourMa);
   const tempDifference = actcurrentTemp - setTemp;
   let statusText, StatusIcon, statusColorClass, statusTextClass, alertState;
 
@@ -77,7 +76,7 @@ const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance, offset }) => 
           {alertState && <AlertTriangle className="mr-2 text-red-500 blinking" style={{ height: '4rem', width: 'auto' }} />}
           <motion.span
             // className={`temperature-display-text text-7xl sm:text-8xl md:text-9xl font-bold ${getTemperatureColorClass(currentTemp)}`}
-            className={`text-7xl sm:text-4xl md:text-7xl font-bold ${statusTextClass}`}
+            className={`text-7xl sm:text-8xl md:text-10xl font-bold ${statusTextClass}`}
             key={actcurrentTemp}
             initial={{ y: 15, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -108,7 +107,7 @@ const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance, offset }) => 
         </div>
 
         <motion.p
-          className="mt-1.5 text-base sm:text-2xl text-muted-foreground"
+          className="mt-1.5 text-base text-dark sm:text-3xl font-bold text-muted-foreground text-neutral-800"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
@@ -117,33 +116,35 @@ const TemperatureDisplay = ({ currentTemp, setTemp, tempTolerance, offset }) => 
         </motion.p>
       </div>
 
-      <motion.div
-        className="flex flex-col items-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.4 }}
-      >
-        <div className="flex items-baseline">
-          <span className={`text-4xl sm:text-5xl md:text-6xl font-semibold text-red-500`}>{setTemp.toFixed(2)}</span>
-          <span className={`text-lg sm:text-2xl md:text-4xl ml-1 text-red-500`}>
-            °C
-          </span>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <motion.div
+          className="flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.4 }}
+        >
+          <div className="flex items-baseline">
+            <span className="text-2xl sm:text-3xl md:text-4xl font-semibold text-red-500">
+              {setTemp.toFixed(2)}
+            </span>
+            <span className="text-lg sm:text-2xl md:text-4xl ml-1 text-red-500">°C</span>
+          </div>
+          <p className="text-base sm:text-lg text-muted-foreground">Target Temperature</p>
+        </motion.div>
 
-        </div>
-        <p className="text-base sm:text-xl text-muted-foreground">Target Temperature</p>
-      </motion.div>
-
-      <motion.div
-        className={`mt-4 sm:mt-5 flex items-center px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium ${statusColorClass}`}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 150 }}
-      >
-        <StatusIcon size={18} className="mr-2 sm:mr-2.5" />
-        {statusText}
-      </motion.div>
+        <motion.div
+          className={`mt-4 sm:mt-0 flex items-center px-3.5 py-2.5 sm:px-5 sm:py-3 rounded-full text-sm sm:text-base md:text-lg font-medium ${statusColorClass}`}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.4, type: "spring", stiffness: 150 }}
+        >
+          <StatusIcon size={18} className="mr-2 sm:mr-2.5" />
+          {statusText}
+        </motion.div>
+      </div>
     </motion.div>
   );
-};
+}
+
 
 export default TemperatureDisplay;
